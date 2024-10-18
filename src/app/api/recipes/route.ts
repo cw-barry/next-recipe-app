@@ -2,7 +2,7 @@ import dbConnect from '@/lib/mongodb';
 import Recipe, { IRecipe } from '@/models/recipe';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   await dbConnect();
 
   try {

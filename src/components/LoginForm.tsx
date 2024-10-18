@@ -1,20 +1,19 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
 import { useAuth } from '@/context/AuthContext';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 // Define login schema
 const loginSchema = z.object({
@@ -28,7 +27,6 @@ export default function LoginForm() {
   });
 
   const { signIn, signupProvider } = useAuth(); // Use AuthContext
-  const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     await signIn(values.email, values.password);

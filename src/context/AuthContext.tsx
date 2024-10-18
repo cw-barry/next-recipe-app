@@ -1,34 +1,33 @@
 'use client';
+import { initializeApp } from 'firebase/app';
+import {
+  createUserWithEmailAndPassword,
+  User as FirebaseUser,
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
+import {
+  doc,
+  DocumentData,
+  getDoc,
+  getFirestore,
+  setDoc,
+} from 'firebase/firestore'; // Firestore imports
+import { useRouter } from 'next/navigation';
 import {
   createContext,
+  ReactNode,
   useContext,
   useEffect,
   useState,
-  ReactNode,
 } from 'react';
-import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signInWithEmailAndPassword,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  User as FirebaseUser,
-} from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  DocumentData,
-} from 'firebase/firestore'; // Firestore imports
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { set } from 'mongoose';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -111,8 +110,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       router.push('/');
       toast.success('Registered Successfully!');
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error((error as Error).message);
     }
   };
 
@@ -135,8 +134,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       router.push('/');
       toast.success('Logged In Successfully!');
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error((error as Error).message);
     }
   };
 
@@ -169,9 +168,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         });
       }
       console.log('userRolesResources', userRolesResources);
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error((error as Error).message);
     }
   };
 
@@ -180,8 +179,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await sendPasswordResetEmail(auth, email);
       toast.warn('Please check your email!');
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      toast.error((error as Error).message);
     }
   };
 

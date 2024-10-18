@@ -13,7 +13,6 @@ async function getRecipeBySlug(slug: string): Promise<IRecipe | null> {
     console.log(slug);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/recipes/${slug}`,
-      // `/api/recipes/${slug}`,
       {
         next: { revalidate: 10 }, // Optional caching with revalidation
       }
@@ -26,7 +25,8 @@ async function getRecipeBySlug(slug: string): Promise<IRecipe | null> {
     const data = await res.json();
     return data.data;
   } catch (error) {
-    console.log((error as Error).message);
+    console.error((error as Error).message);
+    return null; // Ensuring the function always returns a value
   }
 }
 
