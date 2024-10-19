@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 interface IRecipe {
   title: string;
   image: string;
@@ -48,7 +46,12 @@ export default async function RecipePage({
       </a>
       <div className="border border-gray-300 rounded-lg p-5 max-w-lg mx-auto">
         <h1 className="text-2xl font-bold mb-4 text-center">{recipe.title}</h1>
-        <Image src={recipe.image} alt={recipe.title} width={600} height={400} />
+
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="w-full mb-4 rounded lg:h-80 object-cover object-center dark:bg-gray-500 dark:rounded sm:h-48"
+        />
 
         <h3 className="mt-4 mb-2 text-lg font-bold text-center text-gray-800 dark:text-white sm:text-xl lg:text-2xl">
           Ingredients
